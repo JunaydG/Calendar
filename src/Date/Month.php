@@ -9,8 +9,9 @@ class Month {
     public $days = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
 
     private $months = ['Janvier','Février','Mars', 'Avril', 'Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'];
-    private $month;
-    private $year;
+
+    public $month;
+    public $year;
 
 
 
@@ -22,18 +23,18 @@ class Month {
     public function __construct(int $month = null,int $year = null)
     {
 
-        if ($month === null) {
+        if ($month === null || $month < 1 || $month > 12 ) {
             $month = intval(date('m'));
         }
-        if ($year === null) {
+        if ($year === null  || $month < 1 || $month > 12) {
             $year = intval(date('Y'));
         }
-        if ($month < 1 || $month > 12) {
-            throw new \Exception("Le mois $month n'est pas valide");
-        }
-        if ($year < 1970) {
-            throw new \Exception("L'anner est inférieur à 1970");
-        }
+        // if ($month < 1 || $month > 12) {
+        //     throw new \Exception("Le mois $month n'est pas valide");
+        // }
+        // if ($year < 1970) {
+        //     throw new \Exception("L'anner est inférieur à 1970");
+        // }
 
         $this->month = $month;
         $this->year = $year;
@@ -66,4 +67,33 @@ class Month {
        }
        return $weeks;
     }
+
+
+    public function withinMonth (\DateTime $date): bool {
+        return $this->getStartingDay()->format('Y-m') === $date->format(('Y-m'));
+    }
+
+
+       //Retourne le mois suivant
+    public function nextMonth(): Month {
+    $month = $this->month + 1;
+    $year = $this->year;
+    if ($month > 12) {
+        $month = 1;
+        $year +=1;
+    }
+    return new Month($month, $year);
+    }
+
+
+    //Retourne le mois precedent
+    public function previousMonth(): Month {
+        $month = $this->month - 1;
+        $year = $this->year;
+        if ($month < 1) {
+            $month = 12;
+            $year -=1;
+        }
+        return new Month($month, $year);
+        }
 }

@@ -20,24 +20,36 @@ require '../src/Date/Month.php';
 
 $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
 
-$day = $month->getStartingDay()->modify('last monday');
+$start = $month->getStartingDay()->modify('last monday');
 
 
 
 ?>
 
-<h1><?=$month->toString();?></h1>
-
+<div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
+    <h1><?=$month->toString();?></h1>
+    <div>
+        <a class="btn btn-primary" href="index.php?month=<?= $month->previousMonth()->month;?>&year=<?= $month->previousMonth()->year; ?>">&lt;</a>
+        <a class="btn btn-primary" href="index.php?month=<?= $month->nextMonth()->month;?>&year=<?= $month->nextMonth()->year; ?>">&gt;</a>
+    </div>
+    </div>
 
 
 <table class="calendar__table calendar__table--<?= $month->getWeeks(); ?>weeks">
     <?php for ($i=0; $i < $month->getWeeks(); $i++): ?>
-
-        <?php foreach ($month->days as $day) : ?>
         <tr>
-           <?= $day; ?>
-        </tr>
+        <?php
+         foreach ($month->days as $k => $day) : 
+            $date = (clone $start)->modify("+" . ($k + $i * 7) ."days");
+            ?>
+            <td class="<?= $month->withinMonth($date) ? '' : 'calendar__othermonth'; ?>">
+                <?php if ($i === 0): ?>
+                <div class="calendar__weekday"><?= $day; ?></div>
+                <?php endif; ?>
+                <div class="calendar__day"><?= (clone $start)->modify("+" . ($k + $i * 7) ."days")->format('d'); ?></div>
+            </td>
         <?php endforeach; ?>
+        </tr>
     <?php endfor; ?>    
 </table>
 
