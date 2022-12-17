@@ -32,17 +32,12 @@ $day = $month->getStartingDay()->modify('last monday');
 
 <table class="calendar__table calendar__table--<?= $month->getWeeks(); ?>weeks">
     <?php for ($i=0; $i < $month->getWeeks(); $i++): ?>
+
+        <?php foreach ($month->days as $day) : ?>
         <tr>
-            <td>Lundi<br>
-            <?=  $day?>
-            </td>
-            <td>Mardi</td>
-            <td>Mercredi</td>
-            <td>Jeudi</td>
-            <td>Vendredi</td>
-            <td>Samedi</td>
-            <td>Dimanche</td>
+           <?= $day; ?>
         </tr>
+        <?php endforeach; ?>
     <?php endfor; ?>    
 </table>
 
