@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="css/calendar.css">
 </head>
 <body>
 
@@ -17,9 +18,33 @@
 <?php 
 require '../src/Date/Month.php';
 
-$month = new App\Date\Month(1,2018); ?>
+$month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+
+$day = $month->getStartingDay()->modify('last monday');
+
+
+
+?>
 
 <h1><?=$month->toString();?></h1>
+
+
+
+<table class="calendar__table calendar__table--<?= $month->getWeeks(); ?>weeks">
+    <?php for ($i=0; $i < $month->getWeeks(); $i++): ?>
+        <tr>
+            <td>Lundi<br>
+            <?=  $day?>
+            </td>
+            <td>Mardi</td>
+            <td>Mercredi</td>
+            <td>Jeudi</td>
+            <td>Vendredi</td>
+            <td>Samedi</td>
+            <td>Dimanche</td>
+        </tr>
+    <?php endfor; ?>    
+</table>
 
     
 
