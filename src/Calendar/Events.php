@@ -7,19 +7,19 @@ use PDO;
 class Events
 {
 
+    function __construct(\PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
     //PERMET DE RECUPERER DES EVENEMENTS ENTRE DEUX DATES
 
 
     public function getEventsBetween(\DateTime $start, \DateTime $end): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=calendar', 'root', '', [
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
-        ]);
-
         $sql = "SELECT * FROM events WHERE start BETWEEN '{$start->format('Y-m-d 00:00:00')}' AND '{$end->format('Y-m-d 23:59:59')}'";
 
-        $statement = $pdo->query($sql);
+        $statement = $this->pdo->query($sql);
         $results = $statement->fetchAll();
         return $results;
     }
@@ -38,5 +38,10 @@ class Events
             }
         }
         return $days;
+    }
+
+    public function find(int $id): array
+    {
+        return $this->pdo->query("SELECT * FROM events WHERE id = $id LIMIT 1")->fetch();
     }
 }
