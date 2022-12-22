@@ -24,7 +24,7 @@ try {
 }
 require_once '../views/header.php';
 
-// dd($event);
+ dd($event);
 ?>
 
 <h1><?= h($event->getName()); ?></h1>
