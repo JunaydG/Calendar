@@ -39,7 +39,7 @@
                      <div class="calendar__day"><?= $date->format('d'); ?></div>
                      <?php foreach ($eventsForDay as $event) : ?>
                          <div class="calendar__event">
-                             <?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="event.php?id="> <?= h($event['name']); ?> </a>
+                             <?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="./event.php?id=<?= $event['id']; ?>"> <?= h($event['name']); ?> </a>
                          </div>
                      <?php endforeach; ?>
                  </td>

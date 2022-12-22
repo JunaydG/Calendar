@@ -22,9 +22,7 @@ try {
 } catch (\Exception $e) {
     e404();
 }
-require_once '../views/header.php';
-
- dd($event);
+render('header', ['title' => $event->getName()]);
 ?>
 
 <h1><?= h($event->getName()); ?></h1>
