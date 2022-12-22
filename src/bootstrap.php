@@ -1,5 +1,14 @@
 <?php
 
+require '../vendor/autoload.php';
+
+
+function e404() {
+    require_once '../public/404.php';
+    exit();
+}
+
+
 function dd(...$vars)
 {
     foreach ($vars as $var) {
@@ -18,7 +27,7 @@ function getbdd()
     ]);
 }
 
-function h(string $value): string
+function h(?string $value): string
 {
     if ($value === null) {
         return '';

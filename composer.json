@@ -1,0 +1,15 @@
+{
+    "name": "drayz/calendar",
+    "authors": [
+        {
+            "name": "Junayd.G",
+            "email": "junayd.guelmani18@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Calendar\\": "src/Calendar"
+        }
+    },
+    "require": {}
+}

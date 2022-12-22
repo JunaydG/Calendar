@@ -1,9 +1,6 @@
  <?php
     require_once '../src/bootstrap.php';
-    require_once '../views/header.php';
-    require '../src/Calendar/Month.php';
-    require '../src/Calendar/Events.php';
-
+ 
 
     $events = new Calendar\Events($pdo);
     $month = new Calendar\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
@@ -12,6 +9,8 @@
     $weeks = $month->getWeeks();
     $end = (clone $start)->modify('+' . (6 + 7 * ($weeks - 1)) . 'days');
     $events = $events->getEventsBetweenByDay($start, $end);
+
+    require_once '../views/header.php';
     ?>
 
  <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
