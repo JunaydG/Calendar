@@ -4,17 +4,15 @@ use Calendar\Events;
 
 require_once '../src/bootstrap.php';
 
-// dd($_GET);
-
-require '../src/Calendar/Events.php';
-
 
 $pdo = getbdd();
 
 $events = new Calendar\Events($pdo);
 
+$errors = [];
+
 if (!isset($_GET['id'])) {
-    header('location: 404.php');
+    e404();
 }
 
 try {
@@ -22,18 +20,43 @@ try {
 } catch (\Exception $e) {
     e404();
 }
+
+
+$data = [
+    'name' => $event->getName(),
+    'date' => $event->getStart()->format('Y-m-d'),
+    'start' => $event->getStart()->format('H:i'),
+    'end' => $event->getEnd()->format('H:i'),
+    'description' => $event->getDescription()
+];
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST;
+    $validator = new Calendar\EventValidator();
+    $errors = $validator->validates($data);
+    if (empty($errors)) {
+        $events->hydrate($event, $data);
+        $events->update($event);
+        header('Location: index.php?success=1');
+        exit();
+    }
+}
+
+
 render('header', ['title' => $event->getName()]);
 ?>
 
-<h1><?= h($event->getName()); ?></h1>
-<ul>
-    <li>Date: <?= $event->getStart()->format('d/m/Y'); ?></li>
-    <li>Heure de démarrage: <?= $event->getStart()->format('H:i'); ?></li>
-    <li>Heure de fin: <?= $event->getEnd()->format('H:i'); ?></li>
-    <li>
-        Description:<br>
-        <?= $event->getDescription(); ?>
-    </li>
-</ul>
+<div class="container">
+    <h1>Editer l'évènement <small><?= h($event->getName()); ?></small></h1>
 
-<?php require_once '../views/footer.php'; ?>
+    <form action="" method="post" class="form">
+        <?php render('calendar/form', ['data' => $data, 'errors' => $errors]); ?>
+        <div class="mb-2">
+            <button class="btn btn-primary">Modifier l'évènement</button>
+        </div>
+    </form>
+</div>
+
+<?php render('footer') ?>

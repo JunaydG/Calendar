@@ -42,6 +42,15 @@ class Events
         return $days;
     }
 
+    public function hydrate(Event $event, array $data) {
+        $event->setName($data['name']);
+        $event->setDescription($data['name']);
+        $event->setStart(\DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' .$data['start'])->format('Y-m-d H:i:s'));
+        $event->setEnd(\DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' .$data['end'])->format('Y-m-d H:i:s'));
+
+        return $event;
+    }
+
     //READ
 
     public function find(int $id): Event
@@ -65,6 +74,19 @@ class Events
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+
+    //UPDATE
+    public function update (Event $event): bool {
+        $statement = $this->pdo->prepare('UPDATE events SET name = ?, description = ? , start = ?, end = ? WHERE id = ?');
+        return $statement->execute([
+            $event->getName(),
+            $event->getDescription(),
+            $event->getStart()->format('Y-m-d H:i:s'),
+            $event->getEnd()->format('Y-m-d H:i:s'),
+            $event->getId(),
         ]);
     }
 }

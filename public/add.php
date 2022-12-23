@@ -3,7 +3,7 @@
 use Calendar\Event;
 
 require '../src/bootstrap.php';
-render('header', ['title' => 'Ajouter un évènement']);
+
 
 $data = [];
 $errors = [];
@@ -14,11 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validator = new Calendar\EventValidator();
     $errors = $validator->validates($_POST);
     if (empty($errors)) {
-        $event = new \Calendar\Event();
-        $event->setName($data['name']);
-        $event->setDescription($data['name']);
-        $event->setStart(DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' .$data['start'])->format('Y-m-d H:i:s'));
-        $event->setEnd(DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' .$data['end'])->format('Y-m-d H:i:s'));
+        $event = $events->hydrate(new \Calendar\Event() , $data);
         $events = new \Calendar\Events(getbdd());
         $events->create($event);
         header('Location: index.php?success=1');
@@ -26,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+render('header', ['title' => 'Ajouter un évènement']);
 ?>
 
 <div class="container">

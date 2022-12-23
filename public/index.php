@@ -50,8 +50,12 @@
                          <div class="calendar__day"><?= $date->format('d'); ?></div>
                          <?php foreach ($eventsForDay as $event) : ?>
                              <div class="calendar__event">
-                                 <?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="./event.php?id=<?= $event['id']; ?>"> <?= h($event['name']); ?> </a>
+                             <button>
+                             <a href="./event.php?id=<?= $event['id']; ?>">Voir</a>
+                             </button>
+                                 <?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="./edit.php?id=<?= $event['id']; ?>"> <?= h($event['name']); ?> </a>
                              </div>
+                           
                          <?php endforeach; ?>
                      </td>
                  <?php endforeach; ?>
