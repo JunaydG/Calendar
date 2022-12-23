@@ -27,13 +27,14 @@ class Validator {
 
 
     public function minLenght(string $field, int $length): bool {
-        if (mb_strlen($field) < $length) {
-            $this->errors[$field] = "Le champs doit avoir plus de $length caractères.";
+        if(mb_strlen($this->data[$field]) < $length){
+            $this->errors[$field] = "Le champs doit avoir au moins $length caractères";
             return false;
-        } else {
+           }
+           else{
             return true;
-        }
-    }
+           }
+          }
 
     public function date (string $field): bool {
         if(\DateTime::createFromFormat('Y-m-d', $this->data[$field]) === false) {

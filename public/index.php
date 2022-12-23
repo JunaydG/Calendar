@@ -17,6 +17,15 @@
     
  <div class="calendar">
 
+ <?php if (isset($_GET['success'])): ?>
+    <div class="container">
+    <div class="alert alert-success">
+        L'évènement a bien été enregistré
+    </div>
+    </div>
+<?php endif; ?>  
+
+
      <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
          <h1><?= $month->toString(); ?></h1>
          <div>

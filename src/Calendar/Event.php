@@ -37,7 +37,7 @@ class Event {
     }
 
     
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -51,7 +51,7 @@ class Event {
     }
 
    
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
 
@@ -65,7 +65,7 @@ class Event {
     }
 
    
-    public function setStart($start)
+    public function setStart(string $start)
     {
         $this->start = $start;
 
@@ -79,7 +79,7 @@ class Event {
     }
 
    
-    public function setEnd($end)
+    public function setEnd(string $end)
     {
         $this->end = $end;
 

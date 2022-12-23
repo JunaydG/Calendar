@@ -7,6 +7,8 @@ use PDO;
 class Events
 {
 
+    private $pdo;
+
     function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -40,6 +42,8 @@ class Events
         return $days;
     }
 
+    //READ
+
     public function find(int $id): Event
     {
         $statement = $this->pdo->query("SELECT * FROM events WHERE id = $id LIMIT 1");
@@ -49,5 +53,18 @@ class Events
             throw new \Exception('Aucun résultat n\'a été trouvé');
         }
         return $result;
+    }
+
+
+    //CREATE
+
+    public function create (Event $event): bool {
+        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end) VALUES (?, ?, ?, ?) ');
+        return $statement->execute([
+            $event->getName(),
+            $event->getDescription(),
+            $event->getStart()->format('Y-m-d H:i:s'),
+            $event->getEnd()->format('Y-m-d H:i:s'),
+        ]);
     }
 }
