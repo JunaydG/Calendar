@@ -50,7 +50,7 @@
          <?php endfor; ?>
      </table>
 
-     <a href="/add.php" class="calendar__button">+</a>
+     <a href="add.php" class="calendar__button">+</a>
  </div>
 
  <?php require_once '../views/footer.php'; ?>
