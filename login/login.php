@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 
@@ -13,6 +13,7 @@ if (isset($_POST['submit'])) {
 
     $db = getbdd();
 
+
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $db->prepare($sql);
     $result->execute();
@@ -20,11 +21,12 @@ if (isset($_POST['submit'])) {
     if ($result->rowCount() > 0) {
         $data = $result->fetchAll();
         if (password_verify($pass, $data[0]["password"])) {
+            //Connexion Réussi
             header("Location: ../public/index.php");
             $_SESSION['email'] = $email;
             exit();
         }
-    }else {
+    } else {
         header("Location: ./inscription.view.php");
         exit();
     }
@@ -36,11 +38,19 @@ if (isset($_POST['submitInscription'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
 
+   
+
     $db = getbdd();
 
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $db->prepare($sql);
     $result->execute();
+
+
+    //EMAIL EXIST
+    $exists = "SELECT EXISTS(SELECT * FROM users) AS email";
+    $resultExist = $db->prepare($exists);
+    $resultExist->execute();
 
     if ($result->rowCount() <= 0) {
         $pass = password_hash($pass, PASSWORD_DEFAULT);
@@ -49,9 +59,8 @@ if (isset($_POST['submitInscription'])) {
         $req->execute();
         header("Location: ./inscription_validate.view.php");
         // echo "Enregistrement effectué";
-  
+
+    }else {
+        echo "Email EXIST";
     }
 }
-
-
-?>
