@@ -1,8 +1,12 @@
 <?php
 
-use Calendar\Event;
+
 
 require '../src/bootstrap.php';
+require_once '../src/Calendar/Events.php';
+require_once '../src/Calendar/EventValidator.php';
+
+
 
 
 $data = [];
@@ -10,12 +14,11 @@ $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST;
-    $errors = [];
-    $validator = new Calendar\EventValidator();
+    $validator = new EventValidator();
     $errors = $validator->validates($_POST);
     if (empty($errors)) {
-        $event = $events->hydrate(new \Calendar\Event() , $data);
-        $events = new \Calendar\Events(getbdd());
+        $events = new Events(getbdd());
+        $event = $events->hydrate(new Event(), $data);
         $events->create($event);
         header('Location: index.php?success=1');
         exit();
@@ -35,8 +38,8 @@ render('header', ['title' => 'Ajouter un évènement']);
     <?php endif; ?>
 
     <h1>Ajouter un évènement</h1>
-  <form action="" method="post" class="form">
-  <?php render('calendar/form' , ['data' => $data, 'errors' => $errors]); ?>
+    <form action="" method="post" class="form">
+        <?php render('calendar/form', ['data' => $data, 'errors' => $errors]); ?>
         <div class="mb-2">
             <button class="btn btn-primary">Ajouter l'évènement</button>
         </div>

@@ -1,10 +1,8 @@
 <?php
 
-namespace Calendar;
 
-use DateTime;
-
-class Event {
+class Event
+{
 
     private $id;
 
@@ -16,13 +14,13 @@ class Event {
 
     private $end;
 
-   
+
     public function getId()
     {
         return $this->id;
     }
 
-    
+
     public function setId($id)
     {
         $this->id = $id;
@@ -30,13 +28,13 @@ class Event {
         return $this;
     }
 
-    
+
     public function getName()
     {
         return $this->name;
     }
 
-    
+
     public function setName(string $name)
     {
         $this->name = $name;
@@ -44,13 +42,13 @@ class Event {
         return $this;
     }
 
-  
+
     public function getDescription()
     {
         return $this->description ?? '';
     }
 
-   
+
     public function setDescription(string $description)
     {
         $this->description = $description;
@@ -58,13 +56,13 @@ class Event {
         return $this;
     }
 
-   
+
     public function getStart(): \DateTime
     {
         return new \DateTime($this->start);
     }
 
-   
+
     public function setStart(string $start)
     {
         $this->start = $start;
@@ -72,13 +70,13 @@ class Event {
         return $this;
     }
 
-  
+
     public function getEnd(): \DateTime
     {
         return new \DateTime($this->end);
     }
 
-   
+
     public function setEnd(string $end)
     {
         $this->end = $end;

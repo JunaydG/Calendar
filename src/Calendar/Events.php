@@ -1,15 +1,13 @@
 <?php
 
-namespace Calendar;
-
-use PDO;
+require_once '../src/Calendar/Event.php';
 
 class Events
 {
 
     private $pdo;
 
-    function __construct(\PDO $pdo)
+    function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
@@ -17,7 +15,7 @@ class Events
     //PERMET DE RECUPERER DES EVENEMENTS ENTRE DEUX DATES
 
 
-    public function getEventsBetween(\DateTime $start, \DateTime $end): array
+    public function getEventsBetween(\DateTimeInterface $start, \DateTimeInterface $end): array
     {
         $sql = "SELECT * FROM events WHERE start BETWEEN '{$start->format('Y-m-d 00:00:00')}' AND '{$end->format('Y-m-d 23:59:59')}'";
 
@@ -26,7 +24,7 @@ class Events
         return $results;
     }
 
-    public function getEventsBetweenByDay(\DateTime $start, \DateTime $end): array
+    public function getEventsBetweenByDay(\DateTimeInterface $start, \DateTimeInterface $end): array
     {
         $events = $this->getEventsBetween($start, $end);
         $days = [];
@@ -42,21 +40,22 @@ class Events
         return $days;
     }
 
-    public function hydrate(Event $event, array $data) {
+    public function hydrate(Event $event, array $data)
+    {
         $event->setName($data['name']);
-        $event->setDescription($data['name']);
-        $event->setStart(\DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' .$data['start'])->format('Y-m-d H:i:s'));
-        $event->setEnd(\DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' .$data['end'])->format('Y-m-d H:i:s'));
+        $event->setDescription($data['description']);
+        $event->setStart(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['start'])->format('Y-m-d H:i:s'));
+        $event->setEnd(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));
 
         return $event;
     }
 
     //READ
 
-    public function find(int $id): Event
+    public function find(int $id)
     {
         $statement = $this->pdo->query("SELECT * FROM events WHERE id = $id LIMIT 1");
-        $statement->setFetchMode(\PDO::FETCH_CLASS,Event::class);
+        $statement->setFetchMode(\PDO::FETCH_CLASS, Event::class);
         $result =  $statement->fetch();
         if ($result === false) {
             throw new \Exception('Aucun résultat n\'a été trouvé');
@@ -67,7 +66,8 @@ class Events
 
     //CREATE
 
-    public function create (Event $event): bool {
+    public function create(Event $event): bool
+    {
         $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end) VALUES (?, ?, ?, ?) ');
         return $statement->execute([
             $event->getName(),
@@ -79,7 +79,8 @@ class Events
 
 
     //UPDATE
-    public function update (Event $event): bool {
+    public function update(Event $event): bool
+    {
         $statement = $this->pdo->prepare('UPDATE events SET name = ?, description = ? , start = ?, end = ? WHERE id = ?');
         return $statement->execute([
             $event->getName(),

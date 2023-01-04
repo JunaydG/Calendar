@@ -1,13 +1,17 @@
 <?php
 
-use Calendar\Events;
+
 
 require_once '../src/bootstrap.php';
+require_once '../src/Calendar/Events.php';
+require_once '../src/Calendar/EventValidator.php';
+
+
 
 
 $pdo = getbdd();
 
-$events = new Calendar\Events($pdo);
+$events = new Events($pdo);
 
 $errors = [];
 
@@ -22,6 +26,7 @@ try {
 }
 
 
+
 $data = [
     'name' => $event->getName(),
     'date' => $event->getStart()->format('Y-m-d'),
@@ -34,7 +39,7 @@ $data = [
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST;
-    $validator = new Calendar\EventValidator();
+    $validator = new EventValidator();
     $errors = $validator->validates($data);
     if (empty($errors)) {
         $events->hydrate($event, $data);

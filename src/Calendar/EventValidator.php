@@ -1,18 +1,18 @@
 <?php
-namespace Calendar;
 
-use App\Validator;
+require_once '../src/App/Validator.php';
 
+class EventValidator extends Validator
+{
 
-class EventValidator extends Validator{
-
-    public function validates(array $data) {
+    public function validates(array $data)
+    {
         parent::validates($data);
-        $this->validate('name', 'minlenght' , 3);
+        $this->validate('name', 'minlenght', 3);
         $this->validate('date', 'date');
         $this->validate('start', 'time');
         $this->validate('end', 'time');
-        $this->validate('start', 'beforeTime','end');
+        $this->validate('start', 'beforeTime', 'end');
         return $this->errors;
     }
 }

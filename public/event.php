@@ -1,6 +1,6 @@
 <?php
 
-use Calendar\Events;
+
 
 require_once '../src/bootstrap.php';
 
@@ -11,7 +11,7 @@ require '../src/Calendar/Events.php';
 
 $pdo = getbdd();
 
-$events = new Calendar\Events($pdo);
+$events = new Events($pdo);
 
 if (!isset($_GET['id'])) {
     header('location: 404.php');

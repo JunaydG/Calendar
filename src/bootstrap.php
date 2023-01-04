@@ -1,7 +1,5 @@
 <?php
 
-require '../vendor/autoload.php';
-
 
 function e404() {
     require_once '../public/404.php';
