@@ -47,11 +47,6 @@ if (isset($_POST['submitInscription'])) {
     $result->execute();
 
 
-    //EMAIL EXIST
-    $exists = "SELECT EXISTS(SELECT * FROM users) AS email";
-    $resultExist = $db->prepare($exists);
-    $resultExist->execute();
-
     if ($result->rowCount() <= 0) {
         $pass = password_hash($pass, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (email, password) VALUES ('$email','$pass')";

@@ -34,6 +34,12 @@ render('header', ['title' => $event->getName()]);
         Description:<br>
         <?= $event->getDescription(); ?>
     </li>
+    <li>
+        Catégorie: <?= $event->getCategorie(); ?>
+        <?php if ($event->getCategorie() == 'Transport') : ?>
+            🚓
+            <?php endif; ?>
+    </li>
 </ul>
 
 <?php require_once '../views/footer.php'; ?>

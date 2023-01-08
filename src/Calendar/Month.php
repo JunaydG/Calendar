@@ -68,7 +68,6 @@ class Month
         if ($endWeek === 1) {
             $endWeek = intval((clone $end)->modify('- 7 days')->format('W')) + 1;
         }
-        var_dump($endWeek);
         $weeks = $endWeek - $startWeek + 1;
         if ($weeks < 0) {
             $weeks = intval($end->format('W'));

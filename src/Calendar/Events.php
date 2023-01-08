@@ -46,6 +46,8 @@ class Events
         $event->setDescription($data['description']);
         $event->setStart(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['start'])->format('Y-m-d H:i:s'));
         $event->setEnd(\DateTimeImmutable::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));
+        $event->setCategorie($data['categorie']);
+
 
         return $event;
     }
@@ -68,12 +70,14 @@ class Events
 
     public function create(Event $event): bool
     {
-        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end) VALUES (?, ?, ?, ?) ');
+        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end, categorie) VALUES (?, ?, ?, ?, ?) ');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
+            $event->getCategorie(),
+            $event->getAvatar()
         ]);
     }
 
@@ -81,12 +85,14 @@ class Events
     //UPDATE
     public function update(Event $event): bool
     {
-        $statement = $this->pdo->prepare('UPDATE events SET name = ?, description = ? , start = ?, end = ? WHERE id = ?');
+        $statement = $this->pdo->prepare('UPDATE events SET name = ?, description = ? , start = ?, end = ? , categorie = ?, avatar = ? WHERE id = ?');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
+            $event->getCategorie(),
+            $event->getAvatar(),
             $event->getId(),
         ]);
     }

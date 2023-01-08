@@ -8,12 +8,13 @@ require_once '../src/Calendar/EventValidator.php';
 
 
 
-
+$db = getbdd();
 $data = [];
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST;
+
     $validator = new EventValidator();
     $errors = $validator->validates($_POST);
     if (empty($errors)) {
@@ -23,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: index.php?success=1');
         exit();
     }
+
 }
 
 render('header', ['title' => 'Ajouter un évènement']);
@@ -50,4 +52,5 @@ render('header', ['title' => 'Ajouter un évènement']);
 
 
 
-<?php render('footer'); ?>
+<?php render('footer');
+var_dump($data) ?>

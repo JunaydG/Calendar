@@ -14,6 +14,11 @@ class Event
 
     private $end;
 
+    private $categorie;
+
+    private $avatar;
+
+
 
     public function getId()
     {
@@ -80,6 +85,36 @@ class Event
     public function setEnd(string $end)
     {
         $this->end = $end;
+
+        return $this;
+    }
+
+
+
+ 
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+
+
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+     
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+   
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
