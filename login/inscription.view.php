@@ -16,6 +16,7 @@
 		<div class="shape"></div>
 	</div>
 	<form method="POST" action="login.php">
+
 		<h3>Inscription</h3>
 
 		<div class="email" data-validate="Email is required">
@@ -24,7 +25,7 @@
 		</div>
 		<div class="password" data-validate="Password is required">
 			<label for="password">Password</label>
-			<input type="password" name="pass" placeholder="Password" id="password">
+			<input type="password" name="password" placeholder="Password" id="password">
 		</div>
 
 		<button name="submitInscription">S'inscrire</button>

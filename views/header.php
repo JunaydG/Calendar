@@ -14,4 +14,5 @@
 
     <nav class="navbar navbar-dark bg-dark mb-3">
         <a href="index.php" class="navbar-brand">Mon Calendrier</a>
+        <h5 class="account"><?= 'Connectée en tant que : ' . $_SESSION['email'] ?></h5>
     </nav>

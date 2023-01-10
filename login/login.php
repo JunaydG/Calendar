@@ -9,7 +9,7 @@ require_once '../src/bootstrap.php';
 //LOGIN
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $pass = $_POST['pass'];
+    $pass = $_POST['password'];
 
     $db = getbdd();
 
@@ -22,8 +22,9 @@ if (isset($_POST['submit'])) {
         $data = $result->fetchAll();
         if (password_verify($pass, $data[0]["password"])) {
             //Connexion Réussi
-            header("Location: ../public/index.php");
             $_SESSION['email'] = $email;
+            $_SESSION['password'] = password_hash($pass, PASSWORD_DEFAULT);
+            header("Location: ../public/index.php");
             exit();
         }
     } else {
@@ -36,9 +37,9 @@ if (isset($_POST['submit'])) {
 
 if (isset($_POST['submitInscription'])) {
     $email = $_POST['email'];
-    $pass = $_POST['pass'];
+    $pass = $_POST['password'];
 
-   
+
 
     $db = getbdd();
 
@@ -52,10 +53,9 @@ if (isset($_POST['submitInscription'])) {
         $sql = "INSERT INTO users (email, password) VALUES ('$email','$pass')";
         $req = $db->prepare($sql);
         $req->execute();
-        header("Location: ./inscription_validate.view.php");
+        header("Location: ./login.view.php");
         // echo "Enregistrement effectué";
-
-    }else {
-        echo "Email EXIST";
+    } else {
+        echo 'EMAIL EXIST';
     }
 }

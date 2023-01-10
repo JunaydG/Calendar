@@ -57,3 +57,28 @@
   text-decoration: none;
   color: #fff;
 }
+
+.account {
+  color: white;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.1em,
+    rgb(241, 241, 241) 0px 0.05em 0.02em;
+}
+
+/* BUTTON */
+
+.pulse {
+  border: 2px solid #ff3c3c;
+  background-color: #000000;
+  border-radius: 20px;
+  color: #fff;
+  transition: 0.3s;
+}
+.pulse:hover {
+  box-shadow: 8px 8px #4e544d;
+  transition: 0.3s;
+}
+
+.ap {
+  text-decoration: none;
+  color: white;
+}

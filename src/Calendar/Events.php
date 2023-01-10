@@ -77,7 +77,7 @@ class Events
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
             $event->getCategorie(),
-            $event->getAvatar()
+ 
         ]);
     }
 
@@ -85,14 +85,13 @@ class Events
     //UPDATE
     public function update(Event $event): bool
     {
-        $statement = $this->pdo->prepare('UPDATE events SET name = ?, description = ? , start = ?, end = ? , categorie = ?, avatar = ? WHERE id = ?');
+        $statement = $this->pdo->prepare('UPDATE events SET name = ?, description = ? , start = ?, end = ? , categorie = ? WHERE id = ?');
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
             $event->getCategorie(),
-            $event->getAvatar(),
             $event->getId(),
         ]);
     }

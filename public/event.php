@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 
 require_once '../src/bootstrap.php';
 
@@ -9,37 +9,45 @@ require_once '../src/bootstrap.php';
 require '../src/Calendar/Events.php';
 
 
-$pdo = getbdd();
+if (isset($_SESSION)) :
 
-$events = new Events($pdo);
+    $pdo = getbdd();
 
-if (!isset($_GET['id'])) {
-    header('location: 404.php');
-}
+    $events = new Events($pdo);
 
-try {
-    $event = $events->find($_GET['id']);
-} catch (\Exception $e) {
-    e404();
-}
-render('header', ['title' => $event->getName()]);
+    if (!isset($_GET['id'])) {
+        header('location: 404.php');
+    }
+
+    try {
+        $event = $events->find($_GET['id']);
+    } catch (\Exception $e) {
+        e404();
+    }
+    render('header', ['title' => $event->getName()]);
 ?>
 
-<h1><?= h($event->getName()); ?></h1>
-<ul>
-    <li>Date: <?= $event->getStart()->format('d/m/Y'); ?></li>
-    <li>Heure de démarrage: <?= $event->getStart()->format('H:i'); ?></li>
-    <li>Heure de fin: <?= $event->getEnd()->format('H:i'); ?></li>
-    <li>
-        Description:<br>
-        <?= $event->getDescription(); ?>
-    </li>
-    <li>
-        Catégorie: <?= $event->getCategorie(); ?>
-        <?php if ($event->getCategorie() == 'Transport') : ?>
-            🚓
+    <h1><?= h($event->getName()); ?></h1>
+    <ul>
+        <li>Date: <?= $event->getStart()->format('d/m/Y'); ?></li>
+        <li>Heure de démarrage: <?= $event->getStart()->format('H:i'); ?></li>
+        <li>Heure de fin: <?= $event->getEnd()->format('H:i'); ?></li>
+        <li>
+            Description:<br>
+            <?= $event->getDescription(); ?>
+        </li>
+        <li>
+            Catégorie: <?= $event->getCategorie(); ?>
+            <?php if ($event->getCategorie() == 'Transport') : ?>
+                🚓
             <?php endif; ?>
-    </li>
-</ul>
+        </li>
+    </ul>
 
-<?php require_once '../views/footer.php'; ?>
+    <?php require_once '../views/footer.php'; ?>
+
+<?php else :
+    header("Location: ./login.view.php");
+?>
+
+<?php endif; ?>

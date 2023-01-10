@@ -16,7 +16,6 @@ class Event
 
     private $categorie;
 
-    private $avatar;
 
 
 
@@ -91,7 +90,7 @@ class Event
 
 
 
- 
+
     public function getCategorie()
     {
         return $this->categorie;
@@ -101,20 +100,6 @@ class Event
     public function setCategorie($categorie)
     {
         $this->categorie = $categorie;
-
-        return $this;
-    }
-
-     
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-   
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
 
         return $this;
     }

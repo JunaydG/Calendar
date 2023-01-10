@@ -1,7 +1,8 @@
 <?php
 
 
-function e404() {
+function e404()
+{
     require_once '../public/404.php';
     exit();
 }
@@ -34,7 +35,8 @@ function h(?string $value): string
 }
 
 
-function render(string $view, $parameters = []) {
+function render(string $view, $parameters = [])
+{
     extract($parameters);
     include "../views/{$view}.php";
 }
