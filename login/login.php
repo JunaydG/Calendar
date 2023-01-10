@@ -33,6 +33,12 @@ if (isset($_POST['submit'])) {
     }
 }
 
+//LOGOUT
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./login.view.php");
+}
+
 // INSCRIPTION
 
 if (isset($_POST['submitInscription'])) {

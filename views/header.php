@@ -15,4 +15,11 @@
     <nav class="navbar navbar-dark bg-dark mb-3">
         <a href="index.php" class="navbar-brand">Mon Calendrier</a>
         <h5 class="account"><?= 'Connectée en tant que : ' . $_SESSION['email'] ?></h5>
+        <?php if (isset($_SESSION['email'])) : ?>
+            <form action="../login/login.php" method="post">
+            <button class="logout" name="logout">Se déconnecter</button>
+            </form>
+            
+
+        <?php endif; ?>
     </nav>
