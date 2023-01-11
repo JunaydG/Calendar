@@ -6,7 +6,7 @@ require '../src/bootstrap.php';
 require_once '../src/Calendar/Events.php';
 require_once '../src/Calendar/EventValidator.php';
 
-if (isset($_SESSION)) :
+if (isset($_SESSION['email']) && isset($_SESSION['password']) && isset($_SESSION['role']) == "User") :
 
     $db = getbdd();
     $data = [];

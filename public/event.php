@@ -9,7 +9,7 @@ require_once '../src/bootstrap.php';
 require '../src/Calendar/Events.php';
 
 
-if (isset($_SESSION)) :
+if (isset($_SESSION['email']) && isset($_SESSION['password']) && isset($_SESSION['role']) == "User") :
 
     $pdo = getbdd();
 

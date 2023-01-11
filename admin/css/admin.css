@@ -1,0 +1,50 @@
+/* Style the update modal */
+#updateModal {
+    display: none; /* hide the modal by default */
+    position: fixed; /* position the modal in the center of the screen */
+    z-index: 1; /* set a high z-index so the modal appears on top of other elements */
+    padding: 20px; /* add some padding to the modal */
+    background-color: #fff; /* set the background color of the modal */
+    border: 1px solid #ccc; /* add a border to the modal */
+    width: 400px; /* set the width of the modal */
+    height: 300px; /* set the height of the modal */
+    overflow: auto; /* add scrolling to the modal if the content is taller than the height */
+}
+
+/* Style the form inside the modal */
+#updateModal form {
+    margin: 0; /* remove the default margin */
+    width: 100%; /* make the form fill the entire width of the modal */
+    height: 100%; /* make the form fill the entire height of the modal */
+    display: flex; /* use flexbox to center the form vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Style the form inputs */
+#updateModal input[type="text"], #updateModal input[type="email"], #updateModal select {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the form button */
+#updateModal input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+    
+    /* Style the form button when it's hovered */
+    #updateModal input[type="submit"]:hover {
+    background-color: #45a049;
+    }
