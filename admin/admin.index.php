@@ -27,40 +27,49 @@ require_once '../admin/admin.php'; ?>
 
                 <div class="container-fluid">
 
-                    <a class="navbar-brand" href="">Admin</a>
+                    <a class="navbar-brand" href="admin.index.php">Admin</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
 
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="admin.add.php">Créer un utilisateur</a>
+                            </li>
+                        </ul>
+
+                    </div>
                 </div>
             </nav>
         </header>
 
         <table class="table table-hover text-center shadow">
             <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>E-mail</th>
-                <th>Rôle</th>
-                <th>Actions</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>E-mail</th>
+                    <th>Rôle</th>
+                    <th>Actions</th>
+                </tr>
             </thead>
             <tbody>
 
-            <?php
-            foreach ($users as $user) : ?>
-                <tr>
-                    <td> <?= $user["id"] ?></td>
-                    <td><?= $user["email"] ?></td>
-                    <td> <?= $user["role"] ?></td>
-                    <td>
-                        <a href='#' onclick='showUpdateModal(<?= $user["id"] ?>)'>Modifier le rôle</a>
-                        <a href='?delete=" <?= $user["id"] ?> "'>Supprimer</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                <?php
+                foreach ($users as $user) : ?>
+                    <tr>
+                        <td> <?= $user["id"] ?></td>
+                        <td><?= $user["email"] ?></td>
+                        <td> <?= $user["role"] ?></td>
+                        <td>
+                            <a href='#' onclick='showUpdateModal(<?= $user["id"] ?>)'>Modifier le rôle</a>
+                            <a  href='?delete=" <?= $user["id"] ?> "' onclick = "return confirm ('Etes-vous sûr de vouloir supprimer l\'utilisateur?');">Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
 
 
             </tbody>

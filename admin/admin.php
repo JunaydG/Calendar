@@ -28,7 +28,7 @@ if (isset($_POST['update_role'])) {
 // Handle delete request for a user
 if (isset($_GET['delete'])) {
     $user_id = $_GET['delete'];
-    $stmt = $db->prepare("DELETE FROM users WHERE id = '$user_id'");
+    $stmt = $db->prepare("DELETE FROM users WHERE id = $user_id");
     $stmt->execute();
 }
 
