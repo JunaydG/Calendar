@@ -13,11 +13,11 @@ if (isset($_POST['submit'])) {
 
     $db = getbdd();
 
-
+    //Trouve l'email de l'user
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $db->prepare($sql);
     $result->execute();
-
+    // Trouve le role
     $getRole = $db->prepare("SELECT role FROM users WHERE email = '$email'");
 
     $getRole->execute();
@@ -25,6 +25,19 @@ if (isset($_POST['submit'])) {
     $resultRoles = $getRole->fetch(PDO::FETCH_OBJ);
 
     $role = $resultRoles->role;
+
+    //GET user_id by id user
+
+    $getID = "SELECT id FROM users WHERE email = '$email'";
+    $getID = $db->prepare($getID);
+    $getID->execute();
+
+    $resultID = $getID->fetch(PDO::FETCH_ASSOC);
+
+    if ($resultID) {
+        $_SESSION['user_id'] = $resultID['id'];
+    }
+
 
 
     if ($result->rowCount() > 0) {

@@ -17,7 +17,10 @@ class Events
 
     public function getEventsBetween(\DateTimeInterface $start, \DateTimeInterface $end): array
     {
-        $sql = "SELECT * FROM events WHERE start BETWEEN '{$start->format('Y-m-d 00:00:00')}' AND '{$end->format('Y-m-d 23:59:59')}'";
+        $user_id = $_SESSION['user_id'];
+
+
+        $sql = "SELECT * FROM events WHERE user_id = $user_id AND start BETWEEN '{$start->format('Y-m-d 00:00:00')}' AND '{$end->format('Y-m-d 23:59:59')}'";
 
         $statement = $this->pdo->query($sql);
         $results = $statement->fetchAll();
@@ -52,7 +55,7 @@ class Events
         return $event;
     }
 
-    //READ
+    //SEARCH ID
 
     public function find(int $id)
     {
@@ -70,14 +73,24 @@ class Events
 
     public function create(Event $event): bool
     {
-        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end, categorie) VALUES (?, ?, ?, ?, ?) ');
+        $getEmail = $_SESSION['email'];
+
+        $getIdUser = "SELECT id FROM users WHERE email='$getEmail'";
+        $reqIdUser = $this->pdo->prepare($getIdUser);
+        $reqIdUser->execute();
+        $idUser = $reqIdUser->fetch(PDO::FETCH_ASSOC);
+        $reqIdUser->closeCursor();
+
+
+        $statement = $this->pdo->prepare('INSERT INTO events (name, description, start, end, categorie, user_id) VALUES (?, ?, ?, ?, ?,?)');
+
         return $statement->execute([
             $event->getName(),
             $event->getDescription(),
             $event->getStart()->format('Y-m-d H:i:s'),
             $event->getEnd()->format('Y-m-d H:i:s'),
             $event->getCategorie(),
- 
+            $idUser['id']
         ]);
     }
 

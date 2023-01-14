@@ -12,6 +12,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['password']) && isset($_SESSION
     $data = [];
     $errors = [];
 
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST;
 
