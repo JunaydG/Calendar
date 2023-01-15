@@ -64,6 +64,16 @@
     rgb(241, 241, 241) 0px 0.05em 0.02em;
 }
 
+
+
+/*Responsive*/
+
+@media (max-width: 575.98px) {
+    .calendar__table {
+        font-size: 80%;
+    }
+}
+
 /* BUTTON */
 
 .pulse {

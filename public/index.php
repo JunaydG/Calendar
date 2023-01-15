@@ -42,8 +42,8 @@
              </div>
          </div>
 
-
-         <table class="calendar__table calendar__table--<?= $weeks; ?>weeks">
+         <div class="table-responsive">
+         <table class="table table-bordered calendar__table calendar__table--<?= $weeks; ?>weeks">
              <?php for ($i = 0; $i < $weeks; $i++) : ?>
                  <tr>
                      <?php
@@ -53,9 +53,9 @@
                         ?>
                          <td class="<?= $month->withinMonth($date) ? '' : 'calendar__othermonth'; ?>">
                              <?php if ($i === 0) : ?>
-                                 <div class="calendar__weekday"><?= $day; ?></div>
+                                 <div class="calendar__weekday text-sm-center text-xs-left"><?= $day; ?></div>
                              <?php endif; ?>
-                             <div class="calendar__day"><?= $date->format('d'); ?></div>
+                             <div class="calendar__day text-sm-center text-xs-left"><?= $date->format('d'); ?></div>
                              <?php foreach ($eventsForDay as $event) : ?>
                                  <div class="calendar__event">
                                      <button class="pulse">
@@ -89,6 +89,7 @@
                  </tr>
              <?php endfor; ?>
          </table>
+         </div>
 
          <a href="add.php" class="calendar__button">+</a>
      </div>

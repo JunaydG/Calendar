@@ -98,3 +98,19 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
+
+@media (max-width: 575.98px) {
+    .background {
+      width: 330px;   
+      height: 520px;
+      position: absolute;
+      transform: translate(-50%,-50%);
+      left: 50%;
+      top: 50%;
+  }
+
+  form{
+    height: 520px;
+    width: 380px;
+}
+}
