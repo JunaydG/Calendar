@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+ session_start();
+ require_once '../login/login.php';
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +19,7 @@
 		<div class="shape"></div>
 		<div class="shape"></div>
 	</div>
-	<form method="POST" action="login.php">
+	<form method="POST">
 		<h3>Connexion</h3>
 
 		<div class="email" data-validate="Email is required">
@@ -24,6 +27,9 @@
 			<input type="text" name="email" placeholder="Email" id="email">
 		</div>
 		<div class="password" data-validate="Password is required">
+			<div class="error-message">
+				<?php echo $error_message; ?>
+			</div>
 			<label for="password">Password</label>
 			<input type="password" name="password" placeholder="Password" id="password">
 		</div>

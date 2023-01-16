@@ -4,7 +4,7 @@ session_start();
 
 require_once '../src/bootstrap.php';
 
-
+$error_message = "";
 
 //LOGIN
 if (isset($_POST['submit'])) {
@@ -58,6 +58,10 @@ if (isset($_POST['submit'])) {
                 exit();
             }
         }
+
+        if(!password_verify($pass, $data[0]["password"])) {
+            $error_message = "Mot de passe incorrect.";
+            }
     } else {
         header("Location: ./inscription.view.php");
         exit();
