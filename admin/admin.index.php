@@ -47,6 +47,9 @@ require_once '../admin/admin.php'; ?>
             </nav>
         </header>
 
+
+        <input id="search" placeholder="Rechercher...">
+
         <table class="table table-hover text-center shadow">
             <thead class="table-dark">
                 <tr>
@@ -56,17 +59,18 @@ require_once '../admin/admin.php'; ?>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="table">
 
                 <?php
                 foreach ($users as $user) : ?>
                     <tr>
+
                         <td> <?= $user["id"] ?></td>
                         <td><?= $user["email"] ?></td>
                         <td> <?= $user["role"] ?></td>
                         <td>
                             <a href='#' onclick='showUpdateModal(<?= $user["id"] ?>)'>Modifier le rôle</a>
-                            <a  href='?delete=" <?= $user["id"] ?> "' onclick = "return confirm ('Etes-vous sûr de vouloir supprimer l\'utilisateur?');">Supprimer</a>
+                            <a href='?delete=" <?= $user["id"] ?> "' onclick="return confirm ('Etes-vous sûr de vouloir supprimer l\'utilisateur?');">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -95,8 +99,25 @@ require_once '../admin/admin.php'; ?>
                 document.getElementById("user_id").value = userId;
                 document.getElementById("updateModal").style.display = "block";
             }
+
+            const search = document.getElementById("search");
+            const table = document.getElementById("table");
+            const rows = table.getElementsByTagName("tr");
+
+            search.addEventListener("keyup", function() {
+                const searchValue = this.value.toLowerCase();
+
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+
+                    if (row.textContent.toLowerCase().includes(searchValue)) {
+                        row.style.display = "table-row";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
         </script>
-        </a>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
